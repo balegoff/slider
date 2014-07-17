@@ -11,6 +11,7 @@
 @implementation Bluetooth
 
 - (id) init{
+    midiManager = [[Midi alloc] init];
     return self;
 }
 
@@ -91,7 +92,9 @@
 }
 
 
-// Implementation of delegate calls
+/*####################################
+ *    Delegate calls implementation
+ ####################################*/
 
 - (void)rfcommChannelOpenComplete:(IOBluetoothRFCOMMChannel*)rfcommChannel status:(IOReturn)error;
 {
@@ -112,7 +115,7 @@
     int value = *(int*)([byte2 bytes]);
     
     NSLog(@"cc : %d, value : %d", cc, value);
-
+    [midiManager sendMidi:cc withNote:value];
 }
 
 - (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel*)rfcommChannel;

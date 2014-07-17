@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <IOBluetooth/IOBluetooth.h>
+#import "Midi.h"
 
 
 @interface Bluetooth : NSObject{
     IOBluetoothRFCOMMChannel *mRFCOMMChannel;
     IOBluetoothUserNotification *mIncomingChannelNotification;
     BluetoothRFCOMMChannelID mServerChannelID;
+    Midi *midiManager;
 }
 
 - (id) init;

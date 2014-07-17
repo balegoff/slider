@@ -8,9 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Bluetooth.h"
+#import "Midi.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>{
     Bluetooth *bluetooth;
+    Midi *midi;
 }
 
 -(id)init;

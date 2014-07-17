@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4555DB11976E19E007D9E6D /* Midi.m in Sources */ = {isa = PBXBuildFile; fileRef = F4555DB01976E19E007D9E6D /* Midi.m */; };
+		F4555DB31976E674007D9E6D /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4555DB21976E673007D9E6D /* CoreMIDI.framework */; };
+		F4555DB51976E67D007D9E6D /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4555DB41976E67D007D9E6D /* IOBluetooth.framework */; };
 		F4F0E050195DEA500024E1E0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F0E04F195DEA500024E1E0 /* Cocoa.framework */; };
 		F4F0E05A195DEA500024E1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E058195DEA500024E1E0 /* InfoPlist.strings */; };
 		F4F0E05C195DEA500024E1E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F0E05B195DEA500024E1E0 /* main.m */; };
@@ -33,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4555DAF1976E19E007D9E6D /* Midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Midi.h; sourceTree = "<group>"; };
+		F4555DB01976E19E007D9E6D /* Midi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Midi.m; sourceTree = "<group>"; };
+		F4555DB21976E673007D9E6D /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		F4555DB41976E67D007D9E6D /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
 		F4F0E04C195DEA500024E1E0 /* Slider OS X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slider OS X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F0E04F195DEA500024E1E0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4F0E052195DEA500024E1E0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -62,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4555DB51976E67D007D9E6D /* IOBluetooth.framework in Frameworks */,
+				F4555DB31976E674007D9E6D /* CoreMIDI.framework in Frameworks */,
 				F4F0E050195DEA500024E1E0 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +110,8 @@
 		F4F0E04E195DEA500024E1E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4555DB41976E67D007D9E6D /* IOBluetooth.framework */,
+				F4555DB21976E673007D9E6D /* CoreMIDI.framework */,
 				F4F0E04F195DEA500024E1E0 /* Cocoa.framework */,
 				F4F0E06E195DEA510024E1E0 /* XCTest.framework */,
 				F4F0E051195DEA500024E1E0 /* Other Frameworks */,
@@ -125,6 +136,8 @@
 				F4F0E087195DEA720024E1E0 /* AppDelegate.m */,
 				F4F0E083195DEA630024E1E0 /* Bluetooth.h */,
 				F4F0E084195DEA630024E1E0 /* Bluetooth.m */,
+				F4555DAF1976E19E007D9E6D /* Midi.h */,
+				F4555DB01976E19E007D9E6D /* Midi.m */,
 				F4F0E064195DEA510024E1E0 /* MainMenu.xib */,
 				F4F0E067195DEA510024E1E0 /* Images.xcassets */,
 				F4F0E056195DEA500024E1E0 /* Supporting Files */,
@@ -261,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4555DB11976E19E007D9E6D /* Midi.m in Sources */,
 				F4F0E085195DEA630024E1E0 /* Bluetooth.m in Sources */,
 				F4F0E05C195DEA500024E1E0 /* main.m in Sources */,
 				F4F0E088195DEA720024E1E0 /* AppDelegate.m in Sources */,
