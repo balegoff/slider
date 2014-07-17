@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Baptiste Le Goff. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <IOBluetooth/IOBluetooth.h>
-
 
 @interface Bluetooth : NSObject{
     IOBluetoothRFCOMMChannel *mRFCOMMChannel;

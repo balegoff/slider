@@ -12,6 +12,7 @@
 		F4555DB31976E674007D9E6D /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4555DB21976E673007D9E6D /* CoreMIDI.framework */; };
 		F4555DB51976E67D007D9E6D /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4555DB41976E67D007D9E6D /* IOBluetooth.framework */; };
 		F4A82891197869B800B7E242 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F4A82890197869B800B7E242 /* .gitignore */; };
+		F4A82893197870D400B7E242 /* PrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4A82892197870D400B7E242 /* PrefPane.xib */; };
 		F4F0E050195DEA500024E1E0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F0E04F195DEA500024E1E0 /* Cocoa.framework */; };
 		F4F0E05A195DEA500024E1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E058195DEA500024E1E0 /* InfoPlist.strings */; };
 		F4F0E05C195DEA500024E1E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F0E05B195DEA500024E1E0 /* main.m */; };
@@ -43,6 +44,7 @@
 		F4555DB21976E673007D9E6D /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		F4555DB41976E67D007D9E6D /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
 		F4A82890197869B800B7E242 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F4A82892197870D400B7E242 /* PrefPane.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrefPane.xib; sourceTree = "<group>"; };
 		F4F0E04C195DEA500024E1E0 /* Slider OS X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slider OS X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F0E04F195DEA500024E1E0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4F0E052195DEA500024E1E0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -142,6 +144,7 @@
 				F4555DAF1976E19E007D9E6D /* Midi.h */,
 				F4555DB01976E19E007D9E6D /* Midi.m */,
 				F4F0E064195DEA510024E1E0 /* MainMenu.xib */,
+				F4A82892197870D400B7E242 /* PrefPane.xib */,
 				F408EB4D1977983100AE826F /* Images.xcassets */,
 				F4F0E056195DEA500024E1E0 /* Supporting Files */,
 			);
@@ -260,6 +263,7 @@
 				F4F0E08A195DEAAA0024E1E0 /* SerialPortDictionary.plist in Resources */,
 				F4A82891197869B800B7E242 /* .gitignore in Resources */,
 				F4F0E066195DEA510024E1E0 /* MainMenu.xib in Resources */,
+				F4A82893197870D400B7E242 /* PrefPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

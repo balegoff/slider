@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Midi.h"
 
+
 @implementation AppDelegate
 
 -(id)init
@@ -19,7 +20,6 @@
     // Register the callbacks for connection and for disconnection:
     [bluetooth registerForNewConnection:self action:@selector(handleRemoteConnection)];
     [bluetooth registerForNewData:self action:@selector(handleNewData:)];
-    
     return self;
 }
 
@@ -44,11 +44,30 @@
     menuItmeConnectionStatus.title = @"Waiting for Android";
 }
 
+
+/* ##################################
+ *          UI METHODS
+ ##################################*/
+
 // UI callback when the user clicks on "Preferences"
 - (IBAction)preferences:(id)sender
 {
-    NSLog(@"Preferences");
+    
+    [NSApp activateIgnoringOtherApps:YES];
+
+    prefPane = [[NSWindowController alloc] initWithWindowNibName:@"PrefPane"];
+    [[prefPane window] makeKeyAndOrderFront:nil];
+    [prefPane showWindow:nil];
 }
+
+- (IBAction)closePreferences:(id)sender{
+   [NSApp activateIgnoringOtherApps:NO];
+}
+
+
+/* ##################################
+ *          CALLBACK METHODS
+ ##################################*/
 
 // Method called when a connection has been established
 - (void)handleRemoteConnection

@@ -16,6 +16,7 @@
     
     //UI elements
     NSMenuItem *menuItmeConnectionStatus;
+    NSWindowController *prefPane;
 }
 
 @property (readwrite, retain) IBOutlet NSMenu *menu;

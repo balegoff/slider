@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Baptiste Le Goff. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreMIDI/CoreMIDI.h>
 
 @interface Midi : NSObject{
