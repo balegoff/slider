@@ -6,9 +6,9 @@ I strongly recommend not to use it for live performances for the moment, but it 
 
 <h2>Requirements</h2>
 
-*Have at least one IAC bus actived (Audio/MIDI Setup > Window > Show MIDI Window > IAC Driver)
-*Have already paired your Android and OS X devices together before doing anything (will be fixed in a next release)
-*The OS X device must be the first device in your Android's bluetooth paired devices list (will be fixed in a next release)
+* Have at least one IAC bus actived (Audio/MIDI Setup > Window > Show MIDI Window > IAC Driver)
+* Have already paired your Android and OS X devices together before doing anything (will be fixed in a next release)
+* The OS X device must be the first device in your Android's bluetooth paired devices list (will be fixed in a next release)
 
 <h2>How to use it</h2>
 
