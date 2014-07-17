@@ -13,10 +13,22 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>{
     Bluetooth *bluetooth;
     Midi *midi;
+    
+    //UI elements
+    NSMenuItem *menuItmeConnectionStatus;
 }
 
--(id)init;
+@property (readwrite, retain) IBOutlet NSMenu *menu;
+@property (readwrite, retain) IBOutlet NSStatusItem *statusItem;
 
-@property (assign) IBOutlet NSWindow *window;
+-(id)init;
+- (void)awakeFromNib;
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
+
+- (void)handleRemoteConnection;
+- (void)handleNewData:(NSData*)dataObject;
+
+- (IBAction)preferences:(id)sender;
+
 
 @end

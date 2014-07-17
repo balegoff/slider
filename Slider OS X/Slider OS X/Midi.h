@@ -16,8 +16,7 @@
 }
 
 -(id)init;
-
--(void) listEndpoints;
--(void) sendMidi:(int)control withNote:(int)note;
+-(void)listEndpoints;
+-(void)sendMidi:(int)control withNote:(int)note;
 
 @end

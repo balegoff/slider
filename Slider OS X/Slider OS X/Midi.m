@@ -10,8 +10,9 @@
 
 @implementation Midi
 
--(id) init{
-    //Create the MIDI client, MIDI output port and MIDI endpoint.
+//Create the MIDI client, MIDI output port and MIDI endpoint.
+-(id) init
+{
     MIDIClientCreate((CFStringRef)@"Midi client", NULL, NULL, &client);
     MIDIOutputPortCreate(client, (CFStringRef)@"Output port", &outputPort);
     midiOut = MIDIGetDestination(0);
@@ -20,8 +21,8 @@
 }
 
 //Enumerate through the avalaible MIDI destinations
--(void) listEndpoints{
-    
+-(void) listEndpoints
+{
     for (ItemCount index = 0; index < MIDIGetNumberOfDestinations(); index++) {
         MIDIEndpointRef outputEndpoint = MIDIGetDestination(index);
 
@@ -34,7 +35,9 @@
     }
 }
 
--(void) sendMidi:(int)control withNote:(int)note{
+//Send MIDI to the device
+-(void) sendMidi:(int)control withNote:(int)note
+{
     //Set up the data to be sent
     const UInt8 controlData[] = { 0xb0, control, note };
     

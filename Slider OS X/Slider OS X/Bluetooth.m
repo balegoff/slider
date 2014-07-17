@@ -11,11 +11,11 @@
 @implementation Bluetooth
 
 - (id) init{
-    midiManager = [[Midi alloc] init];
     return self;
 }
 
-
+// Connection method
+// returns TRUE if the connection has been established
 - (BOOL) advertise{
     
     BOOL				returnValue = FALSE;
@@ -58,6 +58,7 @@
     return returnValue;
 }
 
+
 // Called when a connection has been established with a device
 - (void) connected: (IOBluetoothUserNotification *)inNotification channel:(IOBluetoothRFCOMMChannel *)newChannel{
     
@@ -67,14 +68,16 @@
 		mRFCOMMChannel = newChannel;
 		      
 		// Set self as the channel's delegate: THIS IS THE VERY FIRST THING TO DO FOR A SERVER !!!!
-		if ( [mRFCOMMChannel setDelegate:self] == kIOReturnSuccess )
+		if ( [mRFCOMMChannel setDelegate:self] == kIOReturnSuccess ){
 			[self stopAdvertising];
+        }
         
         // The setDelgate: call failed. This is catastrophic for a server
 		else
 			mRFCOMMChannel = nil;
     }
 }
+
 
 // Stops providing services
 - (void) stopAdvertising{
@@ -83,12 +86,33 @@
     
     // Unregisters the notification:
     if ( mIncomingChannelNotification != nil )
-	{
+    {
         [mIncomingChannelNotification unregister];
 		mIncomingChannelNotification = nil;
 	}
-	
 	mServerChannelID = 0;
+}
+
+
+// Registers selector for a successful completed connection:
+// tells to this class to call myTarget and myTargetAction when the channel obtains a connection:
+- (void)registerForNewConnection:(id)myTarget action:(SEL)actionMethod
+{
+	mHandleRemoteConnectionSelector = actionMethod;
+	mConnectionTarget = myTarget;
+}
+
+
+// Registers selector for incoming data:
+// tells to this class to call myTarget and myTargetAction when new data shows up:
+- (void)registerForNewData:(id)myTarget action:(SEL)actionMethod
+{
+	mHandleNewDataSelector = actionMethod;
+	mNewDataTarget = myTarget;
+}
+
+- (NSString*)getDeviceName{
+    return [[mRFCOMMChannel getDevice] name];
 }
 
 
@@ -102,20 +126,13 @@
         NSLog(@"Failed to open channel, error %d", error);
         return;
     }
-    
-    NSLog(@"Connected to %@ on channel %d", [[mRFCOMMChannel getDevice] name], [mRFCOMMChannel getChannelID]);
+    else
+        [mConnectionTarget performSelector:mHandleRemoteConnectionSelector];
 }
 
 - (void)rfcommChannelData:(IOBluetoothRFCOMMChannel*)rfcommChannel data:(void *)dataPointer length:(size_t)dataLength;
 {
-	NSData *byte1 = [NSData dataWithBytes:dataPointer length:1];
-    NSData *byte2 = [NSData dataWithBytes:dataPointer+1 length:1];
-    
-    int cc = *(int*)([byte1 bytes]);
-    int value = *(int*)([byte2 bytes]);
-    
-    NSLog(@"cc : %d, value : %d", cc, value);
-    [midiManager sendMidi:cc withNote:value];
+	[mNewDataTarget performSelector:mHandleNewDataSelector withObject:[NSData dataWithBytes:dataPointer length:dataLength]];
 }
 
 - (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel*)rfcommChannel;

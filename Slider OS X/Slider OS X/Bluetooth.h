@@ -8,14 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import <IOBluetooth/IOBluetooth.h>
-#import "Midi.h"
 
 
 @interface Bluetooth : NSObject{
     IOBluetoothRFCOMMChannel *mRFCOMMChannel;
     IOBluetoothUserNotification *mIncomingChannelNotification;
     BluetoothRFCOMMChannelID mServerChannelID;
-    Midi *midiManager;
+    
+    // This is the method to call when the RFCOMM channel appears
+    SEL mHandleRemoteConnectionSelector;
+    id	mConnectionTarget;
+    
+    // This is the method to call in the UI when new data shows up:
+    SEL	mHandleNewDataSelector;
+    id	mNewDataTarget;
 }
 
 - (id) init;
@@ -24,6 +30,10 @@
 - (void) stopAdvertising;
 - (void) connected: (IOBluetoothUserNotification *)inNotification channel:(IOBluetoothRFCOMMChannel *)newChannel;
 
+- (void)registerForNewConnection:(id)myTarget action:(SEL)actionMethod;
+- (void)registerForNewData:(id)myTarget action:(SEL)actionMethod;
+
+- (NSString*)getDeviceName;
 
 // Implementation of delegate calls (see IOBluetoothRFCOMMChannel.h) Only the basic ones:
 - (void)rfcommChannelOpenComplete:(IOBluetoothRFCOMMChannel*)rfcommChannel status:(IOReturn)error;

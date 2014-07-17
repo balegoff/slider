@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F408EB4E1977983100AE826F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F408EB4D1977983100AE826F /* Images.xcassets */; };
 		F4555DB11976E19E007D9E6D /* Midi.m in Sources */ = {isa = PBXBuildFile; fileRef = F4555DB01976E19E007D9E6D /* Midi.m */; };
 		F4555DB31976E674007D9E6D /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4555DB21976E673007D9E6D /* CoreMIDI.framework */; };
 		F4555DB51976E67D007D9E6D /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4555DB41976E67D007D9E6D /* IOBluetooth.framework */; };
+		F4A82891197869B800B7E242 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F4A82890197869B800B7E242 /* .gitignore */; };
 		F4F0E050195DEA500024E1E0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F0E04F195DEA500024E1E0 /* Cocoa.framework */; };
 		F4F0E05A195DEA500024E1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E058195DEA500024E1E0 /* InfoPlist.strings */; };
 		F4F0E05C195DEA500024E1E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F0E05B195DEA500024E1E0 /* main.m */; };
 		F4F0E060195DEA500024E1E0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E05E195DEA500024E1E0 /* Credits.rtf */; };
 		F4F0E066195DEA510024E1E0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E064195DEA510024E1E0 /* MainMenu.xib */; };
-		F4F0E068195DEA510024E1E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E067195DEA510024E1E0 /* Images.xcassets */; };
 		F4F0E06F195DEA510024E1E0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F0E06E195DEA510024E1E0 /* XCTest.framework */; };
 		F4F0E070195DEA510024E1E0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F0E04F195DEA500024E1E0 /* Cocoa.framework */; };
 		F4F0E078195DEA510024E1E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4F0E076195DEA510024E1E0 /* InfoPlist.strings */; };
@@ -36,10 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F408EB4D1977983100AE826F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F4555DAF1976E19E007D9E6D /* Midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Midi.h; sourceTree = "<group>"; };
 		F4555DB01976E19E007D9E6D /* Midi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Midi.m; sourceTree = "<group>"; };
 		F4555DB21976E673007D9E6D /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		F4555DB41976E67D007D9E6D /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		F4A82890197869B800B7E242 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		F4F0E04C195DEA500024E1E0 /* Slider OS X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slider OS X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F0E04F195DEA500024E1E0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4F0E052195DEA500024E1E0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -51,7 +54,6 @@
 		F4F0E05D195DEA500024E1E0 /* Slider OS X-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Slider OS X-Prefix.pch"; sourceTree = "<group>"; };
 		F4F0E05F195DEA500024E1E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		F4F0E065195DEA510024E1E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		F4F0E067195DEA510024E1E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F4F0E06D195DEA510024E1E0 /* Slider OS XTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Slider OS XTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F0E06E195DEA510024E1E0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F4F0E075195DEA510024E1E0 /* Slider OS XTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Slider OS XTests-Info.plist"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				F4F0E04E195DEA500024E1E0 /* Frameworks */,
 				F4F0E04D195DEA500024E1E0 /* Products */,
 				F4F0E089195DEAAA0024E1E0 /* SerialPortDictionary.plist */,
+				F4A82890197869B800B7E242 /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,7 +142,7 @@
 				F4555DAF1976E19E007D9E6D /* Midi.h */,
 				F4555DB01976E19E007D9E6D /* Midi.m */,
 				F4F0E064195DEA510024E1E0 /* MainMenu.xib */,
-				F4F0E067195DEA510024E1E0 /* Images.xcassets */,
+				F408EB4D1977983100AE826F /* Images.xcassets */,
 				F4F0E056195DEA500024E1E0 /* Supporting Files */,
 			);
 			path = "Slider OS X";
@@ -252,9 +255,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4F0E05A195DEA500024E1E0 /* InfoPlist.strings in Resources */,
-				F4F0E068195DEA510024E1E0 /* Images.xcassets in Resources */,
+				F408EB4E1977983100AE826F /* Images.xcassets in Resources */,
 				F4F0E060195DEA500024E1E0 /* Credits.rtf in Resources */,
 				F4F0E08A195DEAAA0024E1E0 /* SerialPortDictionary.plist in Resources */,
+				F4A82891197869B800B7E242 /* .gitignore in Resources */,
 				F4F0E066195DEA510024E1E0 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
