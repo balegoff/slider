@@ -1,6 +1,8 @@
 package com.meteaure.slider;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -30,17 +32,21 @@ public class MainActivity extends Activity {
 		Button connectButton = (Button) findViewById(R.id.connectButton);
 		
 		// Creating the sliders
-		Slider slider1 = new Slider(this, 1);
+		Slider slider1 = new Slider(this, 1, 51, 181, 229);
 		wrapper.addView(slider1);
 		
-		Slider slider2 = new Slider(this, 2);
+		Slider slider2 = new Slider(this, 2, 170, 102, 204);
 		wrapper.addView(slider2);
 		
-		Slider slider3 = new Slider(this, 3);
+		Slider slider3 = new Slider(this, 3, 153, 204, 00);
 		wrapper.addView(slider3);
 		
-		Slider slider4 = new Slider(this, 4);
+		Slider slider4 = new Slider(this, 4, 255, 187, 51);
 		wrapper.addView(slider4);
+		
+		Slider slider5 = new Slider(this, 4, 255, 68, 68);
+		wrapper.addView(slider5);
+
 		
 		// Listeners
 		connectButton.setOnClickListener(new View.OnClickListener() {
@@ -63,5 +69,19 @@ public class MainActivity extends Activity {
 		super.onDestroy();
 		unregisterReceiver(bluetooth.getReceiver());
 		bluetooth.disconnect();
+	}
+	
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+	    super.onWindowFocusChanged(hasFocus);
+	    if (hasFocus) {
+	        this.findViewById(R.id.linearLayout).setSystemUiVisibility(
+	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+	                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+	                | View.SYSTEM_UI_FLAG_FULLSCREEN
+	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
 	}
 }

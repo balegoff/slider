@@ -13,23 +13,40 @@ import android.widget.SeekBar;
 public class Slider extends SeekBar{
 	
 	private int cc;
+	private int red;
+	private int green;
+	private int blue;
 	
 	// Constructor
-	public Slider(Context context, int c) {
+	public Slider(Context context, int c, int r, int g, int b) {
 		super(context);
 		cc = c;
+		red = r;
+		green = g;
+		blue = b;
 		this.setMax(127);
 		this.makeStyle();
         this.addListeners();
 	}
 	
+	public Slider(Context context, int c){
+		super(context);
+		cc = c;
+		red = 200;
+		green = 180;
+		blue = 50;
+		this.setMax(127);
+		this.makeStyle();
+        this.addListeners();
+	}
 	
 	// Slider custom style
 	public void makeStyle(){
 		ShapeDrawable s1 = new ShapeDrawable();
-        s1.getPaint().setColor(Color.BLACK);
+        s1.getPaint().setColor(Color.rgb(40,60,100));
         ShapeDrawable s2 = new ShapeDrawable();
-        s2.getPaint().setColor(Color.MAGENTA); 
+        
+        s2.getPaint().setColor(Color.rgb(red,green,blue)); 
         
         ClipDrawable clip = new ClipDrawable(s2, Gravity.LEFT,ClipDrawable.HORIZONTAL);
         
