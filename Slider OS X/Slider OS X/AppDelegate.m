@@ -19,6 +19,7 @@
     
     // Register the callbacks for connection and for disconnection:
     [bluetooth registerForNewConnection:self action:@selector(handleRemoteConnection)];
+    [bluetooth registerForEndOfConnection:self action:@selector(handleEndOfConnection)];
     [bluetooth registerForNewData:self action:@selector(handleNewData:)];
     return self;
 }
@@ -72,7 +73,16 @@
 // Method called when a connection has been established
 - (void)handleRemoteConnection
 {
+    NSLog(@"Connection established");
     menuItmeConnectionStatus.title = [bluetooth getDeviceName];
+}
+
+// Method called when the connection is gone
+- (void)handleEndOfConnection
+{
+   	NSLog(@"Channel Closed");
+    [bluetooth advertise];
+    menuItmeConnectionStatus.title = @"Waiting For Android";
 }
 
 // Method called when new data is incoming on the channel

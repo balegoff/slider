@@ -16,7 +16,7 @@
 
 // Connection method
 // returns TRUE if the connection has been established
-- (BOOL) advertise{
+- (BOOL)advertise{
     
     BOOL				returnValue = FALSE;
     NSString			*dictionaryPath = nil;
@@ -60,27 +60,29 @@
 
 
 // Called when a connection has been established with a device
-- (void) connected: (IOBluetoothUserNotification *)inNotification channel:(IOBluetoothRFCOMMChannel *)newChannel{
+- (void)connected: (IOBluetoothUserNotification *)inNotification channel:(IOBluetoothRFCOMMChannel *)newChannel{
     
     // Make sure the channel is an incoming channel on the right channel ID.
     if ( (newChannel != nil) && [newChannel isIncoming] && ([newChannel getChannelID] == mServerChannelID) ){
         
 		mRFCOMMChannel = newChannel;
-		      
+        
 		// Set self as the channel's delegate: THIS IS THE VERY FIRST THING TO DO FOR A SERVER !!!!
 		if ( [mRFCOMMChannel setDelegate:self] == kIOReturnSuccess ){
 			[self stopAdvertising];
+            
         }
         
         // The setDelgate: call failed. This is catastrophic for a server
 		else
 			mRFCOMMChannel = nil;
     }
+    
 }
 
 
 // Stops providing services
-- (void) stopAdvertising{
+- (void)stopAdvertising{
     
     NSLog(@"Stopping advertising");
     
@@ -102,6 +104,10 @@
 	mConnectionTarget = myTarget;
 }
 
+- (void)registerForEndOfConnection:(id)myTarget action:(SEL)actionMethod{
+    mHandleEndOfConnectionSelector = actionMethod;
+	mEndofConnectionTarget = myTarget;
+}
 
 // Registers selector for incoming data:
 // tells to this class to call myTarget and myTargetAction when new data shows up:
@@ -137,8 +143,7 @@
 
 - (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel*)rfcommChannel;
 {
-	NSLog(@"Channel Closed");
-    [self advertise];
+    [mEndofConnectionTarget performSelector:mHandleEndOfConnectionSelector];
 }
 
 

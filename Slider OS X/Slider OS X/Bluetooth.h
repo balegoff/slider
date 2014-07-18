@@ -17,6 +17,10 @@
     SEL mHandleRemoteConnectionSelector;
     id	mConnectionTarget;
     
+    // This is the method to call when the RFCOMM channel disappears
+    SEL mHandleEndOfConnectionSelector;
+    id	mEndofConnectionTarget;
+    
     // This is the method to call in the UI when new data shows up:
     SEL	mHandleNewDataSelector;
     id	mNewDataTarget;
@@ -29,6 +33,7 @@
 - (void) connected: (IOBluetoothUserNotification *)inNotification channel:(IOBluetoothRFCOMMChannel *)newChannel;
 
 - (void)registerForNewConnection:(id)myTarget action:(SEL)actionMethod;
+- (void)registerForEndOfConnection:(id)myTarget action:(SEL)actionMethod;
 - (void)registerForNewData:(id)myTarget action:(SEL)actionMethod;
 
 - (NSString*)getDeviceName;

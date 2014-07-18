@@ -53,7 +53,7 @@ public class Slider extends SeekBar{
         LayerDrawable colors = new LayerDrawable(new Drawable[]{s1,clip});
 
         this.setProgressDrawable(colors);
-        this.setPadding(30, 60, 30, 0);
+        this.setPadding(30, 100, 30, 0);
         this.setThumb(null);
         
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, 300);

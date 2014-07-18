@@ -27,6 +27,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 
 - (void)handleRemoteConnection;
+- (void)handleEndOfConnection;
 - (void)handleNewData:(NSData*)dataObject;
 
 - (IBAction)preferences:(id)sender;
