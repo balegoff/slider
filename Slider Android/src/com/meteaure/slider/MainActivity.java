@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		Slider slider4 = new Slider(this, 4, 255, 187, 51);
 		wrapper.addView(slider4);
 		
-		Slider slider5 = new Slider(this, 4, 255, 68, 68);
+		Slider slider5 = new Slider(this, 5, 255, 68, 68);
 		wrapper.addView(slider5);
 
 		
