@@ -12,6 +12,7 @@
     IOBluetoothRFCOMMChannel *mRFCOMMChannel;
     IOBluetoothUserNotification *mIncomingChannelNotification;
     BluetoothRFCOMMChannelID mServerChannelID;
+    IOBluetoothSDPServiceRecord *serviceRecord;
     
     // This is the method to call when the RFCOMM channel appears
     SEL mHandleRemoteConnectionSelector;
@@ -31,6 +32,7 @@
 - (BOOL) advertise;
 - (void) stopAdvertising;
 - (void) connected: (IOBluetoothUserNotification *)inNotification channel:(IOBluetoothRFCOMMChannel *)newChannel;
+-(void) disconnect;
 
 - (void)registerForNewConnection:(id)myTarget action:(SEL)actionMethod;
 - (void)registerForEndOfConnection:(id)myTarget action:(SEL)actionMethod;

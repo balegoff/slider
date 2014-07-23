@@ -41,12 +41,10 @@
             [sdpEntries setObject:serviceName forKey:@"0100 - ServiceName*"];
             
             // Add SDP dictionary, the rfcomm channel assigned to this service comes back in mServerChannelID.
-            IOBluetoothSDPServiceRecord *serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:sdpEntries];
-            
+            serviceRecord = [IOBluetoothSDPServiceRecord publishedServiceRecordWithDictionary:sdpEntries];
             [serviceRecord getRFCOMMChannelID:&mServerChannelID];
             
-            // Register a notification so we get notified when an incoming RFCOMM channel is opened
-            // to the channel assigned to our service.
+            // Register a notification so we get notified when an incoming RFCOMM channel is opened to the channel assigned to our service.
             mIncomingChannelNotification = [IOBluetoothRFCOMMChannel registerForChannelOpenNotifications:self
                                                             selector:@selector(connected:channel:)
                                                             withChannelID:mServerChannelID
@@ -77,14 +75,15 @@
 		else
 			mRFCOMMChannel = nil;
     }
-    
 }
 
 
 // Stops providing services
 - (void)stopAdvertising{
-    
     NSLog(@"Stopping advertising");
+    
+    //Remove the service
+    [serviceRecord removeServiceRecord];
     
     // Unregisters the notification:
     if ( mIncomingChannelNotification != nil )
@@ -95,6 +94,10 @@
 	mServerChannelID = 0;
 }
 
+-(void) disconnect{
+    [mRFCOMMChannel closeChannel];
+    mRFCOMMChannel = nil;
+}
 
 // Registers selector for a successful completed connection:
 // tells to this class to call myTarget and myTargetAction when the channel obtains a connection:
@@ -117,6 +120,7 @@
 	mNewDataTarget = myTarget;
 }
 
+// Returns device name
 - (NSString*)getDeviceName{
     return [[mRFCOMMChannel getDevice] name];
 }

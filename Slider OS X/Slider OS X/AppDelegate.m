@@ -20,7 +20,6 @@
     // Register the callbacks for connection and for disconnection:
     [bluetooth registerForNewConnection:self action:@selector(handleRemoteConnection)];
     [bluetooth registerForEndOfConnection:self action:@selector(handleEndOfConnection)];
-    [bluetooth registerForNewData:self action:@selector(handleNewData:)];
     return self;
 }
 
@@ -74,6 +73,7 @@
 - (void)handleRemoteConnection
 {
     NSLog(@"Connection established");
+    [bluetooth registerForNewData:self action:@selector(handleNewData:)];
     menuItmeConnectionStatus.title = [bluetooth getDeviceName];
 }
 
@@ -81,6 +81,8 @@
 - (void)handleEndOfConnection
 {
    	NSLog(@"Channel Closed");
+    [bluetooth disconnect];
+    [bluetooth registerForNewData:nil action:nil];
     [bluetooth advertise];
     menuItmeConnectionStatus.title = @"Waiting For Android";
 }
@@ -91,7 +93,7 @@
     const char* bytes = [dataObject bytes];
     int cc = *(int*)(bytes);
     int value = *(int*)(bytes+1);
-    
+    //NSLog(@"data %d", value);
     [midi sendMidi:cc withNote:value];
 }
 
