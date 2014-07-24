@@ -56,7 +56,6 @@ public class MainActivity extends Activity {
 		Slider slider8 = new Slider(this, 8, 170, 102, 204);
 		wrapper.addView(slider8);
 
-		
 		// Listeners
 		connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
