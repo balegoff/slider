@@ -49,6 +49,12 @@ public class MainActivity extends Activity {
 		
 		Slider slider6 = new Slider(this, 6, 255, 255, 255);
 		wrapper.addView(slider6);
+		
+		Slider slider7 = new Slider(this, 7, 51, 181, 229);
+		wrapper.addView(slider7);
+		
+		Slider slider8 = new Slider(this, 8, 170, 102, 204);
+		wrapper.addView(slider8);
 
 		
 		// Listeners
