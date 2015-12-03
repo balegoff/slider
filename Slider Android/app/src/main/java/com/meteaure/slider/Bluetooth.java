@@ -2,6 +2,8 @@ package com.meteaure.slider;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,8 +16,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 public class Bluetooth {
@@ -23,31 +23,29 @@ public class Bluetooth {
 	public static final int REQUEST_ENABLE_BT = 1;
 	
 	private BluetoothAdapter mBluetoothAdapter;
-	private BluetoothDevice macbook;
-	private ConnectionThread connectionTh;
-	private SendingThread sendingThread;
-	private Activity activity;
-	private boolean connected;
+	private ConnectionThread mConnectionThread;
+	private SendingThread mSendingThread;
+	private Context mContext;
+	private boolean mIsConnected;
 	
 	// BroadcastReceiver managing bluetooth connection events
 	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 	    @Override
 	    public void onReceive(Context context, Intent intent) {
 	        String action = intent.getAction();
-	        Button connectButton = (Button) activity.findViewById(R.id.connectButton);
+	        //Button connectButton = (Button) ((Activity)mContext).findViewById(R.id.connectButton);
 	        
 	        if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-	            connected = true;
-	            connectButton.setVisibility(View.GONE);
-	            Toast.makeText(activity.getApplicationContext(), "BT Connected", Toast.LENGTH_SHORT).show();
+	            mIsConnected = true;
+	            Toast.makeText(mContext, "Connected", Toast.LENGTH_SHORT).show();
 	        }
 	        else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-	            connected = false;
-	            sendingThread = null;
-	    		connectionTh.cancel();
-	    		connectionTh = null;
-	    		connectButton.setVisibility(View.VISIBLE);
-	            Toast.makeText(activity.getApplicationContext(), "BT Disconnected", Toast.LENGTH_SHORT).show();
+	            mIsConnected = false;
+	            mSendingThread = null;
+				if(mConnectionThread != null) {
+					mConnectionThread.cancel();
+					mConnectionThread = null;
+				}
 	        }
 	    }
 	};
@@ -56,30 +54,33 @@ public class Bluetooth {
 	 * Constructor
 	 * Only initializes the Android Bluetooth Adapter 
 	 */
-	public Bluetooth(Activity a){
-		connected = false;
-		activity = a;
+	public Bluetooth(Context context){
+		mIsConnected = false;
+		mContext = context;
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
         IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-        activity.registerReceiver(mReceiver, filter1);
-        activity.registerReceiver(mReceiver, filter2);
+		mContext.registerReceiver(mReceiver, filter1);
+		mContext.registerReceiver(mReceiver, filter2);
 	}
 	
 	
 	/**
 	 * Enables bluetooth on phone
 	 * If bluetooth isn't enabled, a pop-up will appear to ask the user to activate it
-	 * @param activity The current activity, needed to create the pop-up
 	 */
 	public void enable(){
 		if (!mBluetoothAdapter.isEnabled()) {
 		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		    activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+			((Activity)mContext).startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 		}
 		// Waiting the system to turn on bluetooth
 		while(!mBluetoothAdapter.isEnabled()){
-			try{ Thread.sleep(500); } catch(InterruptedException e){}
+			try{
+				Thread.sleep(500);
+			} catch(InterruptedException e){
+				Log.v(MainActivity.TAG, e.getMessage());
+			}
 		}
 	}
 	
@@ -87,22 +88,14 @@ public class Bluetooth {
 	/**
 	 * Listing the devices that the user has already paired before
 	 * Getting a reference to the Mac
-	 * @return The list of Paired Devices
+	 * @return The list of Paired Devices names
 	 */
-	public String[] getPairedDevices(){
-		String[] knownDevices = new String[16];
+	public List<String> getPairedDevices(){
 		Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-		// If there are paired devices
-		if (pairedDevices.size() > 0) {
-			int i = 0;
-			// Loop through paired devices
-		    for (BluetoothDevice device : pairedDevices) {
-		    	if (i == 0)
-		    		macbook = device;
-		        knownDevices[i] = device.getName() + ": " + device.getAddress();
-		        Log.v("DEVICES", "Device " + i +  " : " + knownDevices[i]);
-		        i++;
-		    }
+		List<String> knownDevices = new ArrayList<String>();
+
+		for (BluetoothDevice device : pairedDevices) {
+			knownDevices.add(device.getName());
 		}
 
 		return knownDevices;
@@ -110,18 +103,22 @@ public class Bluetooth {
 	
 	/**
 	 * Connecting to the Mac bluetooth socket
+	 * @param index The index of the target bluetooth device in th system devices list
 	 */
-	public void connect(){
-		if(!connected){
-    		connectionTh = new ConnectionThread(macbook);
-    		connectionTh.start();
+	public boolean connectDeviceAtIndex(int index){
+		if(!mIsConnected && index < mBluetoothAdapter.getBondedDevices().size()){
+			List<BluetoothDevice> nameList = new ArrayList<BluetoothDevice>(mBluetoothAdapter.getBondedDevices());
+			BluetoothDevice device = nameList.get(index);
+    		mConnectionThread = new ConnectionThread(device);
+    		mConnectionThread.start();
     	}
+		return mIsConnected;
 	}
 	
 	public void disconnect(){
-		sendingThread = null;
-		connectionTh.cancel();
-		connectionTh = null;
+		mSendingThread = null;
+		mConnectionThread.cancel();
+		mConnectionThread = null;
 	}
 	
 	/**
@@ -130,14 +127,14 @@ public class Bluetooth {
 	 * @param value The value of the MIDI signal (from 0 to 127)
 	 */
 	public void sendMidiSignal(int control, int value){
-		if(connected){
-    		if(sendingThread == null){
-    			sendingThread = new SendingThread(connectionTh.getSocket());
-    			sendingThread.start();
+		if(mIsConnected){
+    		if(mSendingThread == null){
+    			mSendingThread = new SendingThread(mConnectionThread.getSocket());
+    			mSendingThread.start();
     		}
     		
     		else {
-    			sendingThread.send(control, value);
+    			mSendingThread.send(control, value);
     		}
     	}
 	}
@@ -166,12 +163,12 @@ public class Bluetooth {
 	        BluetoothSocket tmp = null;
 	        mmDevice = device;
 
-	        Log.v("DEVICE CONNECT", device.getName());
+	        Log.v(MainActivity.TAG, device.getName());
 	        
 	        // Get a BluetoothSocket to connect with the given BluetoothDevice
 	        try {
 	            tmp = mmDevice.createRfcommSocketToServiceRecord(MY_UUID);
-	        } catch (IOException e) {Log.v("DEVICE CONNECT", "UUID STEP ERROR");}
+	        } catch (IOException e) {Log.v(MainActivity.TAG, "UUID STEP ERROR");}
 	        mmSocket = tmp;
 	    }
 	    
@@ -188,19 +185,24 @@ public class Bluetooth {
 	            
 	        } catch (IOException connectException) {
 	            // Unable to connect
-	        	Log.v("DEVICE CONNECT", "ERROR : " + connectException.toString());
+	        	Log.v(MainActivity.TAG, "ERROR : " + connectException.toString());
 
 	            try {
 	                mmSocket.close();
-	            } catch (IOException closeException) { }
+	            } catch (IOException e) {
+					Log.v(MainActivity.TAG, e.getMessage());
+				}
 	        }
 	    }
 	 
 	    /** Will cancel an in-progress connection, and close the socket */
 	    public void cancel() {
 	        try {
-	           mmSocket.close();
-	        } catch (IOException e) {}
+				if(mmSocket.isConnected())
+	           		mmSocket.close();
+	        } catch (IOException e) {
+				Log.v(MainActivity.TAG, e.getMessage());
+			}
 	    }
 	}
 	
@@ -220,7 +222,9 @@ public class Bluetooth {
 	        // Get the output stream, using temp object because OutputStream is final
 	        try {
 	            tmpOut = mmSocket.getOutputStream();
-	        } catch (IOException e) { }
+	        } catch (IOException e) {
+				Log.v(MainActivity.TAG, e.getMessage());
+			}
 	 
 	        mmOutStream = tmpOut;
 	    }
@@ -234,7 +238,9 @@ public class Bluetooth {
 	        try{
 	        	mmOutStream.write(buffer);
 	        }
-	        catch(IOException e){}
+	        catch(IOException e){
+				Log.v(MainActivity.TAG, e.getMessage());
+			}
 	    }
 	}
 
