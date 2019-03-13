@@ -1,4 +1,4 @@
-package com.meteaure.slider;
+package com.blegoff.slider;
 
 import java.io.IOException;
 import java.io.OutputStream;

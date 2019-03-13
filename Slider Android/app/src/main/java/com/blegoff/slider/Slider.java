@@ -1,4 +1,4 @@
-package com.meteaure.slider;
+package com.blegoff.slider;
 
 import android.content.Context;
 import android.graphics.Color;
